@@ -1,0 +1,28 @@
+{
+  "name": "consolidatejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "consolidateFiles.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node -r dotenv/config src/index.js",
+    "play": "babel-node src/playground.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "excel-parser": "^0.2.2",
+    "exceljs": "^4.2.1",
+    "pg": "^8.6.0",
+    "read-excel-file": "^5.1.0",
+    "sequelize": "^6.6.2",
+    "xls-parser": "^3.1.0",
+    "xlsx": "^0.16.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.2"
+  }
+}
