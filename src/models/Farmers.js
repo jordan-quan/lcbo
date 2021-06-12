@@ -2,7 +2,7 @@ import Cols from '../constants/columns/FarmersColumns'
 
 const Farmers = (sequelize, DataTypes) => {
   return sequelize.define(
-    'VQA',
+    'Farmers',
     {
       id: {
         type: DataTypes.INTEGER,
