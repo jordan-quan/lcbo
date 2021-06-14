@@ -1,20 +1,17 @@
-export const bulkInsert = async ({ rows, tableName, pool, batchSize = 50 }) => {
-  // split array into chunks
-  const chunks = [...Array(Math.ceil(rows.length / batchSize))].map((_) =>
-    rows.splice(0, batchSize)
-  )
+import sql from 'mssql/msnodesqlv8'
 
-  // convert each chunk into an insert query
-  const keys = `INSERT INTO '${tableName}' ('id','${Object.keys(rows[0]).join("','")}') VALUES`
-  const queries = chunks.map((chunk) => {
-    const values = chunk
-      .reduce((acc, row) => `${acc} ('${Object.values(row).join("','")}'),`, '')
-      .slice(0, -1)
+export const bulkInsert = async ({ rows, model }) => {
+  const { tableName, columns } = model
+  const table = new sql.Table(tableName)
+  table.create = true
 
-    return `${keys} ${values};`
+  Object.keys(columns).forEach((key) => {
+    const { type, ...options } = columns[key]
+    table.columns.add(key, type, options)
   })
 
-  const promises = queries.map((query) => pool.query(query))
+  rows.forEach((row) => table.rows.add(...Object.values(row)))
 
-  return Promise.all(promises)
+  const request = new sql.Request()
+  return request.bulk(table)
 }

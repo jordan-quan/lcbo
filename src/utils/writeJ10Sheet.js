@@ -2,13 +2,13 @@ import XLSX from 'xlsx'
 import { CONTAINER_DEPOSITS } from '../constants/sheetNames'
 import { zip, replaceData } from './'
 
-export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery, pool }) => {
+export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery }) => {
   const { name, outputSheets } = sheetInfo
   const ws = workbook.Sheets[name]
   let data = XLSX.utils.sheet_to_json(ws, { header: 1 })
 
   const promises = outputSheets.map(
-    ({ name, header, categories, endHeader, columnNames, tableName }) => {
+    ({ name, header, categories, endHeader, columnNames, model }) => {
       const start = data.slice(data.findIndex((row) => row[1] === header))
       const totalIndex = start.findIndex((row) => row[1] === endHeader)
       let content = start.slice(1, totalIndex)
@@ -33,7 +33,7 @@ export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery, pool }) => {
       }
 
       // write sheet
-      return replaceData({ tableName, data: content, month, winery, pool })
+      return replaceData({ model, data: content, month, winery })
     }
   )
 

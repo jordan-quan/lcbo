@@ -8,6 +8,8 @@ import FarmersColumns from './columns/FarmersColumns'
 import LocationColumns from './columns/LocationColumns'
 import ContainerDepositsColumns from './columns/ContainerDepositsColumns'
 
+import * as models from '../models'
+
 import {
   NON_VQA,
   VQA,
@@ -27,7 +29,7 @@ export const NON_VQA_SHEET = {
   startCol: 0,
   filterColumn: 22,
   columnNames: Object.values(NonVQAColumns),
-  tableName: 'non_vqa'
+  model: models.NonVQA
 }
 
 export const VQA_SHEET = {
@@ -36,7 +38,7 @@ export const VQA_SHEET = {
   startCol: 1,
   filterColumn: 23,
   columnNames: Object.values(VQAColumns),
-  tableName: 'vqa'
+  model: models.VQA
 }
 
 export const VQAO_SHEET = {
@@ -45,7 +47,7 @@ export const VQAO_SHEET = {
   startCol: 1,
   filterColumn: 21,
   columnNames: Object.values(VQAOColumns),
-  tableName: 'vqao'
+  model: models.VQAO
 }
 
 export const DUTY_FREE_SHEET = {
@@ -54,7 +56,7 @@ export const DUTY_FREE_SHEET = {
   startCol: 0,
   filterColumn: 18,
   columnNames: Object.values(DutyFreeColumns),
-  tableName: 'duty_free'
+  model: models.DutyFree
 }
 
 export const LCB_J10_SHEET = {
@@ -65,28 +67,28 @@ export const LCB_J10_SHEET = {
       header: 'Sales Channel (Excluding applicable taxes & deposits)',
       endHeader: 'Total Sales',
       columnNames: Object.values(J10Coumns),
-      tableName: 'j10'
+      model: models.J10
     },
     {
       name: WRS,
       header: 'Product Type',
       endHeader: 'Total WRS',
       columnNames: Object.values(WRSColumns),
-      tableName: 'wrs'
+      model: models.WRS
     },
     {
       name: LOCATION,
       header: 'Location Type',
       endHeader: 'Total',
       columnNames: Object.values(LocationColumns),
-      tableName: 'location'
+      model: models.Location
     },
     {
       name: FARMERS,
       header: "Farmers' Market",
       endHeader: "Total Farmers' Market",
       columnNames: Object.values(FarmersColumns),
-      tableName: 'farmers'
+      model: models.Farmers
     },
     // remove: must be descending order
     {
@@ -94,7 +96,7 @@ export const LCB_J10_SHEET = {
       header: 'Deposits Collected by Channel',
       endHeader: 'Total Containers and Deposits',
       columnNames: Object.values(ContainerDepositsColumns),
-      tableName: 'container_deposits',
+      model: models.ContainerDeposits,
       categories: [
         { label: '<=100', end: 9 },
         { label: '>100 & <=630', end: 18 },
