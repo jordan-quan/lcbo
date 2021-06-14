@@ -2,7 +2,7 @@ import XLSX from 'xlsx'
 import { CONTAINER_DEPOSITS } from '../constants/sheetNames'
 import { zip, replaceData } from './'
 
-export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery, pool }) => {
+export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery, sql }) => {
   const { name, outputSheets } = sheetInfo
   const ws = workbook.Sheets[name]
   let data = XLSX.utils.sheet_to_json(ws, { header: 1 })
@@ -33,7 +33,7 @@ export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery, pool }) => {
       }
 
       // write sheet
-      return replaceData({ tableName, data: content, month, winery, pool })
+      return replaceData({ tableName, data: content, month, winery, sql })
     }
   )
 

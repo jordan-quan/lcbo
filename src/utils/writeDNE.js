@@ -1,11 +1,18 @@
 import { bulkInsert } from './bulkInsert'
 import { formatMonth } from './formatMonth'
 
-export const writeDNE = async ({ tableName, months, data, pool }) => {
+export const writeDNE = async ({ tableName, months, data, sql }) => {
   await Promise.all(
-    months.map((month) =>
-      pool.query(`DELETE FROM ${tableName} WHERE month='${formatMonth(month)}';`)
+    months.map((month) =>{
+      const query = `DELETE FROM ${tableName} WHERE month='${formatMonth(month)}';`
+      sql.query(query)
+    }
     )
   )
-  return await bulkInsert({ rows: data, tableName, pool })
+  try {
+  return await bulkInsert({ rows: data, tableName, sql })
+  } catch(e){
+    console.log('Error inserting:', e)
+  }
+  
 }

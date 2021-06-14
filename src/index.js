@@ -1,11 +1,11 @@
 import XLSX from 'xlsx'
 import config from './config'
 import { findFiles, writeFileData, writeDNE } from './utils'
-// import { setup } from './models'
+import { setup } from './models'
 
 // main
 ;(async () => {
-  const pool = await setup()
+  const {pool, sql} = await setup()
 
   const { reportsFolderPath, targetMonths, excludeFoldersRegex } = config
 
@@ -17,7 +17,7 @@ import { findFiles, writeFileData, writeDNE } from './utils'
   console.timeEnd('collected files')
   console.log('\n')
 
-  await writeDNE({ tableName: 'missing_reports', months: targetMonths, data: dne })
+  await writeDNE({ tableName: 'missing_reports', months: targetMonths, data: dne, sql })
 
   console.time('uploaded data')
   await Promise.all(
@@ -25,7 +25,7 @@ import { findFiles, writeFileData, writeDNE } from './utils'
       try {
         const workbook = XLSX.readFile(path)
         console.log(path)
-        return writeFileData({ workbook, month, winery, pool })
+        return writeFileData({ workbook, month, winery, sql })
       } catch (e) {
         console.error(`Error: ${e}`)
       }
@@ -35,4 +35,6 @@ import { findFiles, writeFileData, writeDNE } from './utils'
   console.log('\n')
 
   console.timeEnd('runtime')
+
+  pool.close()
 })()
