@@ -5,23 +5,15 @@
   "main": "consolidateFiles.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node -r dotenv/config src/index.js",
+    "start": "babel-node src/index.js",
     "play": "babel-node src/playground.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
-    "excel-parser": "^0.2.2",
-    "exceljs": "^4.2.1",
     "msnodesqlv8": "^2.2.0",
     "mssql": "^7.1.0",
-    "pg": "^8.6.0",
-    "read-excel-file": "^5.1.0",
-    "sequelize": "^6.6.2",
-    "sequelize-msnodesqlv8": "^0.2.6-beta.8",
     "tedious": "^11.0.9",
-    "xls-parser": "^3.1.0",
     "xlsx": "^0.16.2"
   },
   "devDependencies": {
