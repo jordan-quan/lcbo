@@ -9,5 +9,8 @@ export const getSheetData = ({ sheetInfo, workbook, month, winery }) => {
   return data
     .slice(startRow)
     .filter((row) => !!row[filterColumn] || row[filterColumn] === undefined)
-    .map((row) => ({ ...zip(columnNames, row.slice(startCol)), winery, month }))
+    .map((row) => {
+      const { ignore, ...formatted } = zip(columnNames, row.slice(startCol))
+      return { ...formatted, winery, month }
+    })
 }

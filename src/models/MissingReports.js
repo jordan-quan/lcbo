@@ -1,26 +1,21 @@
-const MissingReports = (sequelize, DataTypes) => {
-  return sequelize.define(
-    'MissingReports',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-      },
+import * as DataTypes from '../constants/dataTypes'
 
-      month: {
-        type: DataTypes.DATE
-      },
-
-      winery: {
-        type: DataTypes.STRING
-      }
+export const MissingReports = {
+  tableName: 'missing_reports',
+  columns: {
+    id: {
+      type: DataTypes.INTEGER,
+      primary: true,
+      autoIncrement: true,
+      nullable: false
     },
-    {
-      tableName: 'missing_reports'
-    }
-  )
-}
 
-export default MissingReports
+    month: {
+      type: DataTypes.DATE
+    },
+
+    winery: {
+      type: DataTypes.STRING
+    }
+  }
+}

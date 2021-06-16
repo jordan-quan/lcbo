@@ -3,6 +3,7 @@ import sql from 'mssql/msnodesqlv8'
 import config from './config'
 import { findFiles, writeFileData, writeDNE } from './utils'
 import { setup } from './models'
+import { MissingReports } from './models/models'
 
 // main
 ;(async () => {
@@ -18,7 +19,7 @@ import { setup } from './models'
   console.timeEnd('collected files')
   console.log('\n')
 
-  await writeDNE({ tableName: 'missing_reports', months: targetMonths, data: dne })
+  await writeDNE({ model: MissingReports, months: targetMonths, data: dne })
 
   console.time('uploaded data')
   await Promise.all(

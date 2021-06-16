@@ -8,7 +8,7 @@ export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery }) => {
   let data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null })
 
   const promises = outputSheets.map(
-    ({ name, header, categories, endHeader, columnNames, tableName }) => {
+    ({ name, header, categories, endHeader, columnNames, model }) => {
       const start = data.slice(data.findIndex((row) => row[1] === header))
       const totalIndex = start.findIndex((row) => row[1] === endHeader)
       let content = start.slice(1, totalIndex)
@@ -33,7 +33,7 @@ export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery }) => {
       }
 
       // write sheet
-      return replaceData({ tableName, data: content, month, winery })
+      return replaceData({ model, data: content, month, winery })
     }
   )
 
