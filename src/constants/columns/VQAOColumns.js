@@ -17,7 +17,7 @@ export default {
   farmersMarketLitres: 'farmers_market_litres',
   farmersMarketValue: 'farmers_market_value',
   miscLitres: 'misc_litres',
-  mistValue: 'misc_value',
+  miscValue: 'misc_value',
   totalContainers: 'total_containers',
   totalLitres: 'total_litres',
   totalValue: 'total_value'

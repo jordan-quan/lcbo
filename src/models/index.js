@@ -1,6 +1,6 @@
-import mssql from 'mssql/msnodesqlv8'
+import sql from 'mssql/msnodesqlv8'
 import { CREATE_SCRIPTS } from '../constants/migration'
-const pool = new mssql.ConnectionPool({
+const connection = new sql.ConnectionPool({
   database: 'FI_WINERY_SALES',
   server: 'csg093\\csg',
   driver: 'msnodesqlv8',
@@ -11,14 +11,16 @@ const pool = new mssql.ConnectionPool({
 
 export const setup = async () => {
   try {
-    await pool.connect()
-    const sql = new mssql.Request(pool)
+    const pool = await connection.connect()
 
     await Promise.all(
-      Object.keys(CREATE_SCRIPTS).map((key) => sql.query(CREATE_SCRIPTS[key]))
+      Object.keys(CREATE_SCRIPTS).map((key) => {
+        const request = new sql.Request(pool)
+        return request.query(CREATE_SCRIPTS[key])})
     )
 
-    return {pool, sql}
+    sql.globalConnection = pool
+
   } catch (e) {
     console.log('Database Error: ', e)
   }

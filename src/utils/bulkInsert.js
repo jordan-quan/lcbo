@@ -1,19 +1,31 @@
+import sql from 'mssql/msnodesqlv8'
+
 const join = (object) => {
   const keys = Object.keys(object)
   return keys.reduce((acc, key, index) => {
+    if (key === 'ignore') return acc
     const value = object[key]
     let end = ','
     if (index === keys.length - 1) end = ''
-   // if (key === 'month') return `${acc}${value}${end}`
+    if (value === undefined) return `${acc}null${end}`
+    if (value === null || typeof value === 'number') return `${acc}${value}${end}`
+    if (key === 'licensee_type') return `${acc}'${value}'${end}`
+    if (typeof value === 'string') {
+      if(value.indexOf("'") !== -1) return `${acc}'${value.replace("'", '')}'${end}` 
+      if(value.indexOf("`") !== -1) return `${acc}'${value.replace("`", '')}'${end}` 
+  }
+    if (value.charAt(0) === '.') `${acc}${parseFloat(value)}${end}`
     return `${acc}'${value}'${end}`
   }, '')
 }
 
-export const bulkInsert = async ({ rows, tableName, sql, batchSize = 50 }) => {
+export const bulkInsert = async ({ rows, tableName, batchSize = 50 }) => {
 
   if(rows.length === 0) return null
 
-  const keys = `INSERT INTO ${tableName} (${Object.keys(rows[0]).join()}) VALUES`
+  const {ignore, ...headers} = rows[0]
+
+  const keys = `INSERT INTO ${tableName} (${Object.keys(headers).join()}) VALUES`
 
   // split array into chunks
   const chunks = [...Array(Math.ceil(rows.length / batchSize))].map((_) =>
@@ -32,10 +44,13 @@ export const bulkInsert = async ({ rows, tableName, sql, batchSize = 50 }) => {
     return `${keys} ${values};`
   })
 
-  console.log(tableName, queries)
+ 
 
 
-  const promises = queries.map((query) => sql.query(query))
+  const promises = queries.map((query) => { 
+    const request = new sql.Request(sql.globalConnection)
+    return request.query(query)
+  })
 
   return Promise.all(promises)
 }

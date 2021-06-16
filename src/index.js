@@ -1,11 +1,12 @@
 import XLSX from 'xlsx'
+import sql from 'mssql/msnodesqlv8'
 import config from './config'
 import { findFiles, writeFileData, writeDNE } from './utils'
 import { setup } from './models'
 
 // main
 ;(async () => {
-  const {pool, sql} = await setup()
+  await setup()
 
   const { reportsFolderPath, targetMonths, excludeFoldersRegex } = config
 
@@ -17,7 +18,7 @@ import { setup } from './models'
   console.timeEnd('collected files')
   console.log('\n')
 
-  await writeDNE({ tableName: 'missing_reports', months: targetMonths, data: dne, sql })
+  await writeDNE({ tableName: 'missing_reports', months: targetMonths, data: dne })
 
   console.time('uploaded data')
   await Promise.all(
@@ -25,7 +26,7 @@ import { setup } from './models'
       try {
         const workbook = XLSX.readFile(path)
         console.log(path)
-        return writeFileData({ workbook, month, winery, sql })
+        return writeFileData({ workbook, month, winery })
       } catch (e) {
         console.error(`Error: ${e}`)
       }
@@ -34,7 +35,6 @@ import { setup } from './models'
   console.timeEnd('uploaded data')
   console.log('\n')
 
+  await sql.globalConnection.close()
   console.timeEnd('runtime')
-
-  pool.close()
 })()
