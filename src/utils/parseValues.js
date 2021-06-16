@@ -13,8 +13,10 @@ export const parseValues = (object, shape) => {
     if (type === DATE) return `${acc}'${value}'${end}`
 
     if (type === STRING) {
-      if (value.indexOf("'") !== -1) return `${acc}'${value.replace("'", '')}'${end}`
-      if (value.indexOf('`') !== -1) return `${acc}'${value.replace('`', '')}'${end}`
+      if (typeof value === 'string'){
+        if (value.indexOf("'") !== -1) return `${acc}'${value.replaceAll("'", '')}'${end}`
+        if (value.indexOf('`') !== -1) return `${acc}'${value.replaceAll('`', '')}'${end}`
+      }
       return `${acc}'${value}'${end}`
     }
 
