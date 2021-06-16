@@ -1,37 +1,34 @@
 import Cols from '../constants/columns/ContainerDepositsColumns'
+import * as DataTypes from '../constants/dataTypes'
 
-const ContainerDeposits = (sequelize, DataTypes) => {
-  return sequelize.define(
-    'ContainerDeposits',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-      },
-
-      month: {
-        type: DataTypes.DATE
-      },
-
-      winery: {
-        type: DataTypes.STRING
-      },
-      [Cols.depositCategory]: {
-        type: DataTypes.STRING
-      },
-      [Cols.totalContainers]: {
-        type: DataTypes.INTEGER
-      },
-      [Cols.depositValue]: {
-        type: DataTypes.FLOAT
-      }
+export const ContainerDeposits = {
+  tableName: 'container_deposits',
+  columns: {
+    id: {
+      type: DataTypes.INTEGER,
+      primary: true,
+      autoIncrement: true,
+      nullable: false
     },
-    {
-      tableName: 'container_deposits'
-    }
-  )
-}
 
-export default ContainerDeposits
+    month: {
+      type: DataTypes.DATE
+    },
+
+    winery: {
+      type: DataTypes.STRING
+    },
+    [Cols.label]: {
+      type: DataTypes.STRING
+    },
+    [Cols.depositCategory]: {
+      type: DataTypes.STRING
+    },
+    [Cols.totalContainers]: {
+      type: DataTypes.INTEGER
+    },
+    [Cols.depositValue]: {
+      type: DataTypes.FLOAT
+    }
+  }
+}

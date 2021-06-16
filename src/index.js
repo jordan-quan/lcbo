@@ -1,7 +1,9 @@
 import XLSX from 'xlsx'
+import sql from 'mssql/msnodesqlv8'
 import config from './config'
 import { findFiles, writeFileData, writeDNE } from './utils'
-import { setup, models } from './models'
+import { setup } from './models'
+import { MissingReports } from './models/models'
 
 // main
 ;(async () => {
@@ -17,7 +19,7 @@ import { setup, models } from './models'
   console.timeEnd('collected files')
   console.log('\n')
 
-  await writeDNE({ model: models.MissingReports, months: targetMonths, data: dne })
+  await writeDNE({ model: MissingReports, months: targetMonths, data: dne })
 
   console.time('uploaded data')
   await Promise.all(
@@ -34,5 +36,6 @@ import { setup, models } from './models'
   console.timeEnd('uploaded data')
   console.log('\n')
 
+  await sql.globalConnection.close()
   console.timeEnd('runtime')
 })()

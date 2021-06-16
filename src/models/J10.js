@@ -1,37 +1,31 @@
 import Cols from '../constants/columns/J10Columns'
+import * as DataTypes from '../constants/dataTypes'
 
-const J10 = (sequelize, DataTypes) => {
-  return sequelize.define(
-    'J10',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-      },
-
-      month: {
-        type: DataTypes.DATE
-      },
-
-      winery: {
-        type: DataTypes.STRING
-      },
-      [Cols.salesChannel]: {
-        type: DataTypes.STRING
-      },
-      [Cols.totalLitres]: {
-        type: DataTypes.FLOAT
-      },
-      [Cols.totalValue]: {
-        type: DataTypes.FLOAT
-      }
+export const J10 = {
+  tableName: 'j10',
+  columns: {
+    id: {
+      type: DataTypes.INTEGER,
+      primary: true,
+      autoIncrement: true,
+      nullable: false
     },
-    {
-      tableName: 'j10'
-    }
-  )
-}
 
-export default J10
+    month: {
+      type: DataTypes.DATE
+    },
+
+    winery: {
+      type: DataTypes.STRING
+    },
+    [Cols.salesChannel]: {
+      type: DataTypes.STRING
+    },
+    [Cols.totalLitres]: {
+      type: DataTypes.FLOAT
+    },
+    [Cols.totalValue]: {
+      type: DataTypes.FLOAT
+    }
+  }
+}

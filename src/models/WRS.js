@@ -1,37 +1,31 @@
 import Cols from '../constants/columns/WRSColumns'
+import * as DataTypes from '../constants/dataTypes'
 
-const WRS = (sequelize, DataTypes) => {
-  return sequelize.define(
-    'WRS',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-      },
-
-      month: {
-        type: DataTypes.DATE
-      },
-
-      winery: {
-        type: DataTypes.STRING
-      },
-      [Cols.productType]: {
-        type: DataTypes.STRING
-      },
-      [Cols.totalLitres]: {
-        type: DataTypes.FLOAT
-      },
-      [Cols.totalValue]: {
-        type: DataTypes.FLOAT
-      }
+export const WRS = {
+  tableName: 'wrs',
+  columns: {
+    id: {
+      type: DataTypes.INTEGER,
+      primary: true,
+      autoIncrement: true,
+      nullable: false
     },
-    {
-      tableName: 'wrs'
-    }
-  )
-}
 
-export default WRS
+    month: {
+      type: DataTypes.DATE
+    },
+
+    winery: {
+      type: DataTypes.STRING
+    },
+    [Cols.productType]: {
+      type: DataTypes.STRING
+    },
+    [Cols.totalLitres]: {
+      type: DataTypes.FLOAT
+    },
+    [Cols.totalValue]: {
+      type: DataTypes.FLOAT
+    }
+  }
+}

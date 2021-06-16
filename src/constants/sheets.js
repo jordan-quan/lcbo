@@ -8,7 +8,7 @@ import FarmersColumns from './columns/FarmersColumns'
 import LocationColumns from './columns/LocationColumns'
 import ContainerDepositsColumns from './columns/ContainerDepositsColumns'
 
-import { models } from '../models'
+import * as models from '../models/models'
 
 import {
   NON_VQA,
