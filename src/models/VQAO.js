@@ -77,7 +77,7 @@ export const VQAO = {
       type: DataTypes.FLOAT
     },
     [Cols.totalContainers]: {
-      type: DataTypes.FLOAT
+      type: DataTypes.INTEGER
     },
     [Cols.totalLitres]: {
       type: DataTypes.FLOAT

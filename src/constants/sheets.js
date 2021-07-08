@@ -64,37 +64,37 @@ export const LCB_J10_SHEET = {
   outputSheets: [
     {
       name: J10,
-      header: 'Sales Channel (Excluding applicable taxes & deposits)',
-      endHeader: 'Total Sales',
+      header: /Sales Channel \(Excluding applicable taxes & deposits\)/,
+      endHeader: /Total Sales/,
       columnNames: Object.values(J10Coumns),
       model: models.J10
     },
     {
       name: WRS,
-      header: 'Product Type',
-      endHeader: 'Total WRS',
+      header: /Product Type/,
+      endHeader: /Total( WRS)?/,
       columnNames: Object.values(WRSColumns),
       model: models.WRS
     },
     {
       name: LOCATION,
-      header: 'Location Type',
-      endHeader: 'Total',
+      header: /Location Type/,
+      endHeader: /Total/,
       columnNames: Object.values(LocationColumns),
       model: models.Location
     },
     {
       name: FARMERS,
-      header: "Farmers' Market",
-      endHeader: "Total Farmers' Market",
+      header: /Farmers' Market/,
+      endHeader: /Total Farmers' Market/,
       columnNames: Object.values(FarmersColumns),
       model: models.Farmers
     },
     // remove: must be descending order
     {
       name: CONTAINER_DEPOSITS,
-      header: 'Deposits Collected by Channel',
-      endHeader: 'Total Containers and Deposits',
+      header: /Deposits Collected by Channel/,
+      endHeader: /Total Containers and Deposits/,
       columnNames: Object.values(ContainerDepositsColumns),
       model: models.ContainerDeposits,
       categories: [

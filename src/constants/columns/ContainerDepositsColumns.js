@@ -1,6 +1,6 @@
 export default {
-  label: 'label',
   depositCategory: 'deposit_category',
+  channel: 'channel',
   totalContainers: 'total_containers',
   depositValue: 'deposit_value'
 }

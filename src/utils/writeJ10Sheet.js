@@ -9,8 +9,10 @@ export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery }) => {
 
   const promises = outputSheets.map(
     ({ name, header, categories, endHeader, columnNames, model }) => {
-      const start = data.slice(data.findIndex((row) => row[1] === header))
-      const totalIndex = start.findIndex((row) => row[1] === endHeader)
+      const startIndex = data.findIndex((row) => header.match(row[1]))
+      if (startIndex === -1) return Promise.resolve()
+      const start = data.slice(startIndex)
+      const totalIndex = start.findIndex((row) => endHeader.match(row[1]))
       let content = start.slice(1, totalIndex)
       data = start.slice(totalIndex)
 
@@ -24,8 +26,12 @@ export const writeJ10Sheet = ({ sheetInfo, workbook, month, winery }) => {
         content.forEach((row, index) => {
           const { label, end } = categories.find(({ end }) => index <= end || end === undefined)
           if (index !== end && index !== 0 && row[1] !== 'Subtotal') {
-            const values = row.filter((cell) => !!cell || cell === 0)
-            container.push({ winery, month, label, ...zip(columnNames, values) })
+            const values = row.filter((cell) => !!cell || cell === 0).unshift(label)
+            container.push({
+              winery,
+              month,
+              ...zip(columnNames, values)
+            })
           }
         })
 

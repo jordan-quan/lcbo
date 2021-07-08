@@ -18,10 +18,10 @@ export const ContainerDeposits = {
     winery: {
       type: DataTypes.STRING
     },
-    [Cols.label]: {
+    [Cols.depositCategory]: {
       type: DataTypes.STRING
     },
-    [Cols.depositCategory]: {
+    [Cols.channel]: {
       type: DataTypes.STRING
     },
     [Cols.totalContainers]: {
